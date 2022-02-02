@@ -13,7 +13,7 @@ class EntryPoint {
     }
 
     private function checkUrl(){
-        if ($this->route !== strtoupper($this->route)){
+        if ($this->route !== strtolower($this->route)){
             http_response_code(301);
             header('location: '.strtolower($this->route));
         }
@@ -29,9 +29,10 @@ class EntryPoint {
         $action = $routes[$this->route][$this->method]['action'];
         $controller = $routes[$this->route][$this->method]['controller'];
         $page = $controller->$action();
+        $title = $page['title'];
 
-        if(isset($page['variable'])){
-            $output = $this->loadTemplates($page['variable'], $page['template']);
+        if(isset($page['variables'])){
+            $output = $this->loadTemplates($page['template'], $page['variables']);
         } else {
             $output = $this->loadTemplates($page['template']);
         }

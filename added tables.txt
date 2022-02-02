@@ -1,0 +1,7 @@
+ booked_venues       
+ day                   
+ day_time
+lecture_halls*           
+ duration                    
+ times                 
+ venue

@@ -7,13 +7,15 @@
     <title><?=$title?></title>
 </head>
 <body>
-    <header>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/ucc/booking">Bookings</a></li>
-            <li><a href="/ucc/venues">Venues</a></li>
-        </ul>
-    </header>
+   <nav>
+        <header>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/book">Book a lecture</a></li>
+                <li><a href="/mytimetable">My Time Table</a></li>        
+            </ul>
+        </header>
+   </nav>
     <main>
         <?=$output?>
     </main>

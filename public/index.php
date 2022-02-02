@@ -8,4 +8,5 @@ try {
 } catch(PDOException $e){
     $title = 'Database Error';
     $output = 'A database error has occured: ' . $e->getMessage() . ' in ' . $e->getFile() . ' on ' . $e->getLine();
+    include __DIR__.'/../templates/layout.html.php';
 }
