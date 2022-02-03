@@ -69,6 +69,11 @@ class DatabaseTable {
         return $row;
     }
 
+    public function findByContraints($table1, $table2, $table3, $table1_column1, $table1_column2, $table1_column3, $table1_column4, $table3_column){
+        $sql = ' SELECT DISTINCT ' . $table1 . '.'.$table1_column1 . ','. $table1. '.'.$table1_column2 . ', ' . $table1. '.'.$table1_column3 . ', ' . $table1. '.'.$table1_column4 . ' FROM ' . $table1 . ' INNER JOIN ' . $table2 .  ' ON ' . $table1. '.'.$table1_column1 .' = '. $table2. '.'.$table1_column1 .' LEFT JOIN ' . $table3 . ' ON ' . $table2. '.'.$table1_column1 .'='. $table3. '.'.$table3_column .  ' WHERE ' . $table3. '.'.$table3_column . ' IS NULL';
+        $result = $this->query($sql);
+        return $result->fetchAll();
+    }
     public function total($column){
         $sql = 'SELECT  COUNT(DISTINCT $column) FROM `' . $this->table . '`';
         $result = $this->query($sql);

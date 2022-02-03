@@ -32,9 +32,10 @@ class Timetable {
         $registered_courses = $this->registeredCoursesTable->findAll('courseid');
        
         $courses = [];
-        foreach($registered_courses as $registered_course){
-            $courses[] = $this->coursesTable->findById('courseid', $registered_course['courseid']);
-        }
+        $courses[] = $this->coursesTable->findByContraints('course_db', 'regdata', 'booked_venues', 'courseid', 'title', 'code', 'credits', 'course_id');
+        // foreach($registered_courses as $registered_course){
+        //     $courses[] = $this->coursesTable->findById('courseid', $registered_course['courseid']);
+        // }
         // Remember to take out
         // $total = $this->registeredCoursesTable->total('courseid');
         $booked_data = $this->bookedVenuesTable->findAll();
