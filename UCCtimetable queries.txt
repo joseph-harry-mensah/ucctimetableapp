@@ -1,3 +1,0 @@
-02 Feb 2022 
-
-select distinct course_db.code, course_db.title from course_db inner join regdata on course_db.courseid = regdata.courseid left join booked_venues on regdata.courseid = booked_venues.course_id where booked_venues.course_id is null;
