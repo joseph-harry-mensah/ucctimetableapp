@@ -29,23 +29,29 @@ class Timetable {
     public function getData(){
         $lecturer = $this->authentication->getUser();
         $booked_venues = $this->bookedVenuesTable->findById('username', $lecturer['username']);
-    
         return ['title' => 'Booked Venues', 'template' => 'mytimetable.html.php', 'variables' => ['booked_venues' => $booked_venues ?? null, 'first_name' => $lecturer['fname']]];
     }
     public function list(){
         // $registered_courses = $this->registeredCoursesTable->findAll();
        
         // $courses = [];
-        $courses[] = $this->coursesTable->findByContraints('osis.course_db', 'osis.regdata', 'uccttdb.booked_venues', 'courseid', 'title', 'code', 'credits', 'course_id');
-
+        $lecturer = $this->authentication->getUser();
+        // $courses[] = $this->coursesTable->findByContraints('osis.course_db', 'osis.regdata', 'uccttdb.booked_venues', 'courseid', 'title', 'code', 'credits', 'course_id');
+        $courseData = $this->coursesTable->findByParams('osisauth.users', 'departments', 'course_db', 'code', 'deptid', $lecturer['deptid'],'title');
+        // var_dump($courseData);
         $booked_data = $this->bookedVenuesTable->findAll();
+        /*
+        select users.username, users.staff_no, osis.course_db.title  
+        from users inner join osis.departments on users.deptid = osis.departments.deptid left join osis.course_db on 
+        osis.departments.deptid = osis.course_db.deptid where osis.departments.deptid = 2001;
+        */
  
         $days = $this->dayTable->findAll();
         $duration = $this->durationTable->findAll();
         $times = $this->timeTable->findAll();
         $venues = $this->venuesTable->findAll();
         
-        return ['title' => 'Book a venue', 'template' => 'book.html.php', 'variables' => ['courses' => $courses ?? null, 'booked_data' => $booked_data ?? null, 'days' => $days ?? null, 'duration' => $duration, 'times' => $times ?? null,'venues' => $venues ?? null]];
+        return ['title' => 'Book a venue', 'template' => 'book.html.php', 'variables' => ['courses' => $courseData ?? null, 'booked_data' => $booked_data ?? null, 'days' => $days ?? null, 'duration' => $duration, 'times' => $times ?? null,'venues' => $venues ?? null]];
     }
 
     public function saveEdit(){
@@ -87,5 +93,21 @@ class Timetable {
     }
     public function edit(){
 
+    }
+    public function printPdf(){
+        $lecturer = $this->authentication->getUser();
+        $data = $this->bookedVenuesTable->findById('username', $lecturer['username']);
+       
+        $pdf = new \Ucc\Controllers\PdfGenerator();
+        $pdf->AliasNbPages();
+        $pdf->addPage('L','A4', 0);
+        $pdf->headerTable();
+        $pdf->tableBody($data);
+        $pdf->Output();
+    }
+    public function removeBooking(){
+        $flag = $_POST['booking'];
+        $this->bookedVenuesTable->delete($flag);
+        header('location: /mytimetable');
     }
 }

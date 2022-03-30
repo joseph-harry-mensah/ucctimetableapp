@@ -77,10 +77,27 @@ class DatabaseTable {
     }
 
     public function findByContraints($table1, $table2, $table3, $table1_column1, $table1_column2, $table1_column3, $table1_column4, $table3_column){
-        $sql = ' SELECT DISTINCT ' . $table1 . '.'.$table1_column1 . ','. $table1. '.'.$table1_column2 . ', ' . $table1. '.'.$table1_column3 . ', ' . $table1. '.'.$table1_column4 . ' FROM ' . $table1 . ' INNER JOIN ' . $table2 .  ' ON ' . $table1. '.'.$table1_column1 .' = '. $table2. '.'.$table1_column1 .' LEFT JOIN ' . $table3 . ' ON ' . $table2. '.'.$table1_column1 .'='. $table3. '.'.$table3_column .  ' WHERE ' . $table3. '.'.$table3_column . ' IS NULL';
+        $sql = ' SELECT DISTINCT ' . $table1 . '.'.$table1_column1 . ','. $table1. '.'.$table1_column2 . ', ' 
+        . $table1. '.'.$table1_column3 . ', ' . $table1. '.'.$table1_column4 . ' FROM '
+         . $table1 . ' INNER JOIN ' . $table2 .  ' ON ' . $table1. '.'.$table1_column1 .' = '. $table2. 
+         '.'.$table1_column1 .' LEFT JOIN ' . $table3 . ' ON ' . $table2 . '.' .$table1_column1 .'='. $table3. 
+         '.'.$table3_column .  ' WHERE ' . $table3 . '.' .$table3_column . ' IS NULL';
         $result = $this->query($sql);
         return $result->fetchAll();
     }
+    public function findByParams($table1, $table2, $table3, $table_column0, $table_column, $table2_column, $table_column2){
+        $sql = ' SELECT '. $table1.'.'.$table_column . ', ' . $table3.'.'.$table_column0 . ','. $table3 . '.' . $table_column2 . ' FROM ' . $table1  
+        . ' INNER JOIN ' . $table2 . ' ON ' . $table1. '.'. $table_column . ' = ' . $table2 . '.'. $table_column 
+        . ' LEFT JOIN ' . $table3 . ' ON ' . $table2 . '.'.$table_column . ' = ' . $table3 . '.'.$table_column 
+        . ' WHERE ' . $table2.'.'. $table_column . ' = ' . $table2_column;
+        $result = $this->query($sql);
+        return $result->fetchAll();
+    }
+     /*
+        select users.username, users.staff_no, osis.course_db.title  
+        from users inner join osis.departments on users.deptid = osis.departments.deptid left join osis.course_db on 
+        osis.departments.deptid = osis.course_db.deptid where osis.departments.deptid = 2001;
+        */
     public function total($column){
         $sql = 'SELECT  COUNT(DISTINCT $column) FROM `' . $this->table . '`';
         $result = $this->query($sql);
@@ -100,7 +117,7 @@ class DatabaseTable {
         }
     }
     public function delete($value){
-        $query = 'DELETE FROM `'. $this->table . '` WHERE `'. $this->primaryKey . '` :value';
+        $query = 'DELETE FROM `'. $this->table . '` WHERE `'. $this->primaryKey . '`= :value';
         $parameters = [':value' => $value];
         $this->query($query, $parameters);
     }

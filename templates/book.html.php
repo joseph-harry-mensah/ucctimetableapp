@@ -3,9 +3,9 @@
     <select name="book[title]" style="width: 350px; padding:0.5rem; margin-bottom: 20px;">
         <option>---SELECT A COURSE---</option>
         <?php foreach($courses as $course): ?>
-            <?php foreach($course as $cour): ?>
-                    <option  value="<?= $cour['title'] . '|' . $cour['courseid'] . '|' . $cour['code']?>"><?= $cour['code'] . ': '.substr($cour['title'], 0,25) . '-'.$cour['credits'].' CRD' ?></option>        
-            <?php endforeach ?>
+            
+                    <option  value="<?= $course['title'] . '|' . $course['courseid'] . '|' . $course['code']?>"><?= $course['code'] . ': '.substr($course['title'], 0,25) ?></option>        
+            
         <?php endforeach ?>
     </select>
     

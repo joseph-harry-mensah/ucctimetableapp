@@ -78,12 +78,23 @@ class UccAppRoutes implements \Generic\Routes {
                 'login' => true
                 ],
             'mytimetable' => [
+                'POST' => [
+                    'controller' => $controller,
+                    'action' => 'removeBooking'
+                ],
                 'GET' => [
                     'controller' => $controller,
                     'action' => 'getData'
                 ],
                 'login' => true
-            ]
+            ],
+            'print' => [
+                'GET' => [
+                    'controller' => $controller,
+                    'action' => 'printPdf'
+                ],
+                'login' => true
+                ]
         ];
         return $routes;
     }
