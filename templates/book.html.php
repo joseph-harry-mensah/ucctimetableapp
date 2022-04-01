@@ -3,9 +3,16 @@
     <select name="book[title]" style="width: 350px; padding:0.5rem; margin-bottom: 20px;">
         <option>---SELECT A COURSE---</option>
         <?php foreach($courses as $course): ?>
-            
-                    <option  value="<?= $course['title'] . '|' . $course['courseid'] . '|' . $course['code']?>"><?= $course['code'] . ': '.substr($course['title'], 0,25) ?></option>        
-            
+            <option  value="<?= $course['courseid'] . '|' . $course['code'] . '|' . $course['title']. '|' . $course['credits'] . '|' . $course['session']?>"><?= substr($course['title'], 0,25) . ': ('. $course['code'] .')' ?></option>         
+        <?php endforeach ?>
+    </select>
+ 
+    <br>
+   
+    <select  name="book[venue]" style="width: 350px; padding:0.5rem; margin-bottom: 20px;">
+        <option>---SELECT A VENUE---</option>
+        <?php foreach($venues as $venue): ?>
+            <option value="<?= $venue['venue_code'] . '|' . $venue['venue_id']?>"><?= $venue['venue_code'] ?></option>
         <?php endforeach ?>
     </select>
     
@@ -16,14 +23,6 @@
             <option  value="<?= $day['day_name'] ?>"><?= $day['day_name'] ?></option>
         <?php endforeach ?>
     </select>
-    <br>
-    <select  name="book[venue]" style="width: 350px; padding:0.5rem; margin-bottom: 20px;">
-        <option>---SELECT A VENUE---</option>
-        <?php foreach($venues as $venue): ?>
-            <option value="<?= $venue['venue_code'] . '|' . $venue['venue_id']?>"><?= $venue['venue_code'] ?></option>
-        <?php endforeach ?>
-    </select>
-    
     <br>
     <select name="book[duration]" style="width: 350px; padding:0.5rem; margin-bottom: 20px;">
         <option>---SELECT DURATION OF LECTURE---</option>

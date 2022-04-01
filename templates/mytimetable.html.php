@@ -1,5 +1,9 @@
-<h2 style="padding: 1.3rem; width:100%; background-color: #2d3690"><span style="color: #FFF;">Welcome</span> <span style="color: #FF0000; font-weight: 700;"><?=$first_name?></span></h2>
-<h3>Timetable for Semester 1, 2021/2022</h3>
+<h2 style="padding: 1.3rem; width:100%; background-color: #2d3690"><span style="color: #FFF;">Welcome</span> <span style="color: #FF0000; font-weight: 700;"><?=$first_name ?></span></h2>
+<?php 
+    $str = str_split( $session[0]['session'], 4);
+    
+    echo '<h3>Timetable for Semester ' . $str[1] . ', ' . $str[0] .  '/' . strval(intval($str[0])+1) . '</h3>';
+?>
 
 <table  class="table table-striped table-hover">
     <thead style="font-weight: 700; font-size: 1rem;">
